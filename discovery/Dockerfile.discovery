@@ -1,0 +1,11 @@
+FROM anapsix/alpine-java:latest
+#FROM subfuzion/netcat:latest
+MAINTAINER ibm.com
+RUN apk --no-cache add netcat-openbsd
+COPY discovery.jar .
+RUN bash -c 'touch discovery.jar'
+COPY discovery-entrypoint.sh .
+RUN chmod +x discovery-entrypoint.sh
+#RUN ln -s usr/local/bin/discovery-entrypoint.sh # backwards compat
+ENTRYPOINT ["sh","discovery-entrypoint.sh"]
+EXPOSE 8082
